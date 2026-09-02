@@ -18,17 +18,20 @@
  */
 package dita.globodiet.manager.versions;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
-import org.jspecify.annotations.Nullable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import dita.commons.sid.SemanticIdentifier;
+import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Diff;
 import dita.commons.types.Pair;
 import dita.foodon.fdm.FoodDescriptionModel;
@@ -36,75 +39,195 @@ import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredientResolved;
 
 public record FdmDiffFactory() {
 
+	public FdmDiff diff(final FoodDescriptionModel main, final FoodDescriptionModel base) {
+		var diff = diffRaw(main, base);
+		var ctx = new Context(diff.mainFdm()::facetSetLiteral);
+		var model = new FdmDiff(
+				diff.foodDiff().leftOuter(),
+				diff.foodDiff().rightOuter(),
+				diff.foodDiff().innerMismatch()
+					.stream()
+					.map(FoodChange::of)
+					.toList(),
+
+				diff.recipeDiff().leftOuter(),
+				diff.recipeDiff().rightOuter(),
+				Stream.concat(
+					diff.recipeDiff().innerMismatch()
+						.stream()
+						.map(pair->RecipeChange.of(
+								ctx, pair, diff.ingredientDiffByRecipeSid().getOrDefault(pair.left().sid(), Diff.empty()))),
+					diff.recipeDiff().innerMatch()
+						.stream()
+						.map(Pair::left)
+						.map((final FoodDescriptionModel.Recipe mainRecp)->RecipeChange.of(
+								ctx, mainRecp, diff.ingredientDiffByRecipeSid().getOrDefault(mainRecp.sid(), Diff.empty())))
+				)
+				.filter(Objects::nonNull)
+				.toList());
+		return model;
+	}
+
 	public record FdmDiff(
+			List<FoodDescriptionModel.Food> foodAdded,
+			List<FoodDescriptionModel.Food> foodRemoved,
+			List<FoodChange> foodChanged,
+			List<FoodDescriptionModel.Recipe> recipesAdded,
+			List<FoodDescriptionModel.Recipe> recipesRemoved,
+			List<RecipeChange> recipesChanged) {
+		public String toYaml() {
+			return new FdmDiffYamlWriter(this).toYaml();
+		}
+	}
+	public record FoodChange(
+			SemanticIdentifier foodSid,
+			String foodName,
+			Pair<String, String> nameChange,
+			Pair<SemanticIdentifier, SemanticIdentifier> groupChange) {
+		static FoodChange of(final Pair<FoodDescriptionModel.Food, FoodDescriptionModel.Food> pair) {
+			var main = pair.left();
+			var base = pair.right();
+			var nameChange = Pair.of(main.name(), base.name());
+			var groupChange = Pair.of(main.groupSid(), base.groupSid());
+			return new FoodChange(
+					main.sid(),
+					nameChange.equal() ? main.name() : null,
+					nameChange.equal() ? null : nameChange,
+					groupChange.equal() ? null : groupChange);
+		}
+	}
+	public record RecipeChange(
+			SemanticIdentifier recipeSid,
+			String recipeName,
+			Pair<String, String> nameChange,
+			Pair<SemanticIdentifier, SemanticIdentifier> groupChange,
+			List<IngredientAdded> ingredientsAdded,
+			List<IngredientRemoved> ingredientsRemoved,
+			List<IngredientChanged> ingredientsChanged) {
+		static RecipeChange of(
+				final Context ctx,
+				final FoodDescriptionModel.Recipe recipe,
+				final Diff<FoodDescriptionModel.RecipeIngredientResolved, FoodDescriptionModel.RecipeIngredientResolved> ingrDiff) {
+			if(ingrDiff.isAllSame())
+				return null;
+			return new RecipeChange(
+					recipe.sid(),
+					recipe.name(),
+					null,
+					null,
+					ingrDiff.leftOuter().stream()
+						.map(it->IngredientAdded.of(ctx, it))
+						.toList(),
+					ingrDiff.rightOuter().stream()
+						.map(it->IngredientRemoved.of(ctx, it))
+						.toList(),
+					ingrDiff.innerMismatch().stream()
+						.map(it->IngredientChanged.of(ctx, it))
+						.toList());
+		}
+		static RecipeChange of(
+				final Context ctx,
+				final Pair<FoodDescriptionModel.Recipe, FoodDescriptionModel.Recipe> pair,
+				final Diff<FoodDescriptionModel.RecipeIngredientResolved, FoodDescriptionModel.RecipeIngredientResolved> ingrDiff) {
+			var main = pair.left();
+			var base = pair.right();
+			var nameChange = Pair.of(main.name(), base.name());
+			var groupChange = Pair.of(main.groupSid(), base.groupSid());
+			return new RecipeChange(
+					main.sid(),
+					nameChange.equal() ? main.name() : null,
+					nameChange.equal() ? null : nameChange,
+					groupChange.equal() ? null : groupChange,
+					ingrDiff.leftOuter().stream()
+						.map(it->IngredientAdded.of(ctx, it))
+						.toList(),
+					ingrDiff.rightOuter().stream()
+						.map(it->IngredientRemoved.of(ctx, it))
+						.toList(),
+					ingrDiff.innerMismatch().stream()
+						.map(it->IngredientChanged.of(ctx, it))
+						.toList());
+		}
+	}
+	public record IngredientAdded(
+			@JsonIgnore RecipeIngredientResolved.Key key,
+			SemanticIdentifier foodSid,
+			String name,
+			SemanticIdentifierSet foodFacetSids,
+			String foodFacets,
+			BigDecimal amountGrams,
+			int relativeMassPermille) {
+		static IngredientAdded of(
+				final Context ctx,
+				final FoodDescriptionModel.RecipeIngredientResolved ingr) {
+			return new IngredientAdded(
+					new RecipeIngredientResolved.Key(ingr.recipeSid(), ingr.foodSid(), ingr.foodFacetSids().hashCode()),
+					ingr.foodSid(),
+					ingr.food().name(),
+					ingr.foodFacetSids(),
+					ctx.facetLiteralProvider.apply(ingr.foodFacetSids()),
+					ingr.amountGrams(),
+					ingr.relativeMassPermille());
+		}
+	}
+	public record IngredientRemoved(
+			@JsonIgnore RecipeIngredientResolved.Key key,
+			SemanticIdentifier foodSid,
+			String name,
+			SemanticIdentifierSet foodFacetSids,
+			String foodFacets) {
+		static IngredientRemoved of(
+				final Context ctx,
+				final FoodDescriptionModel.RecipeIngredientResolved ingr) {
+			return new IngredientRemoved(
+					new RecipeIngredientResolved.Key(ingr.recipeSid(), ingr.foodSid(), ingr.foodFacetSids().hashCode()),
+					ingr.foodSid(),
+					ingr.food().name(),
+					ingr.foodFacetSids(),
+					ctx.facetLiteralProvider.apply(ingr.foodFacetSids()));
+		}
+	}
+	public record IngredientChanged(
+			@JsonIgnore RecipeIngredientResolved.Key key,
+			SemanticIdentifier foodSid,
+			String name,
+			SemanticIdentifierSet foodFacetSids,
+			String foodFacets,
+			Pair<BigDecimal, BigDecimal> amountChange,
+			Pair<Integer, Integer> amountChangePpm,
+			Pair<BigDecimal, BigDecimal> rawToCookedChange) {
+		static IngredientChanged of(
+				final Context ctx,
+				final Pair<FoodDescriptionModel.RecipeIngredientResolved, FoodDescriptionModel.RecipeIngredientResolved> pair) {
+			var main = pair.left();
+			var base = pair.right();
+			var amountChange = Pair.of(main.amountGrams(), base.amountGrams());
+			var amountChangePpm = Pair.of(main.relativeMassPermille(), base.relativeMassPermille());
+			var rawToCookedChange = Pair.of(main.rawToCookedCoefficient(), base.rawToCookedCoefficient());
+			return new IngredientChanged(
+					new RecipeIngredientResolved.Key(main.recipeSid(), main.foodSid(), main.foodFacetSids().hashCode()),
+					main.foodSid(),
+					main.food().name(),
+					main.foodFacetSids(),
+					ctx.facetLiteralProvider.apply(main.foodFacetSids()),
+					amountChange.equal() ? null : amountChange,
+					amountChangePpm.equal() ? null : amountChangePpm,
+					rawToCookedChange.equal() ? null : rawToCookedChange);
+		}
+	}
+
+	// ------
+
+	private record FdmDiffRaw(
 			FoodDescriptionModel mainFdm,
 			FoodDescriptionModel baseFdm,
 			Diff<FoodDescriptionModel.Food, FoodDescriptionModel.Food> foodDiff,
 			Diff<FoodDescriptionModel.Recipe, FoodDescriptionModel.Recipe> recipeDiff,
 			Map<SemanticIdentifier, Diff<FoodDescriptionModel.RecipeIngredientResolved, FoodDescriptionModel.RecipeIngredientResolved>> ingredientDiffByRecipeSid) {
-
-		record RecipeChange(
-				SemanticIdentifier recipeSid,
-				Optional<Pair<String, String>> nameChange,
-				Optional<Pair<SemanticIdentifier, SemanticIdentifier>> groupChange,
-				List<RecipeIngredientResolved> ingredientsAdded,
-				List<RecipeIngredientResolved> ingredientsRemoved,
-				List<Pair<RecipeIngredientResolved, RecipeIngredientResolved>> ingredientsChanged) {
-
-			Optional<RecipeIngredientResolved> lookupAdditions(final RecipeIngredientResolved.Key key) {
-				return ingredientsAdded.stream()
-						.filter(it->it.key().equals(key))
-						.findFirst();
-			}
-			Optional<RecipeIngredientResolved> lookupDeletions(final RecipeIngredientResolved.Key key) {
-				return ingredientsRemoved.stream()
-						.filter(it->it.key().equals(key))
-						.findFirst();
-			}
-			Optional<Pair<RecipeIngredientResolved, RecipeIngredientResolved>> lookupChanges(final RecipeIngredientResolved.Key key) {
-				return ingredientsChanged.stream()
-						.filter(it->it.left().key().equals(key)) // left and right key must be that same
-						.findFirst();
-			}
-	    }
-
-	    Optional<RecipeChange> recipeChangeFor(final SemanticIdentifier recipeSid) {
-	        final var main = mainFdm().lookupRecipeBySid(recipeSid).orElse(null);
-	        final var base = baseFdm().lookupRecipeBySid(recipeSid).orElse(null);
-
-	        if (main == null || base == null)
-				return Optional.empty();
-
-	        final boolean sameName = Objects.equals(main.name(), base.name());
-	        final boolean sameGroup = Objects.equals(main.groupSid(), base.groupSid());
-			final var ingredientDiff = ingredientDiffByRecipeSid()
-					.getOrDefault(recipeSid, Diff.empty());
-
-			return sameName
-					&& sameGroup
-					&& ingredientDiff.isAllSame()
-				? Optional.empty()
-				: Optional.of(new RecipeChange(
-					recipeSid,
-	        		sameName
-	        			? Optional.empty()
-        				: Optional.of(Pair.of(main.name(), base.name())),
-    				sameGroup
-	        			? Optional.empty()
-        				: Optional.of(Pair.of(main.groupSid(), base.groupSid())),
-    				ingredientDiff.leftOuter(),
-    				ingredientDiff.rightOuter(),
-    				ingredientDiff.innerMismatch()
-				));
-	    }
-
-		public @Nullable String toYaml() {
-			return new FdmDiffYamlWriter(this).toYaml();
-		}
 	}
 
-	public FdmDiff diff(final FoodDescriptionModel main, final FoodDescriptionModel base) {
-		var fdmDiff = new FdmDiff(
+	private FdmDiffRaw diffRaw(final FoodDescriptionModel main, final FoodDescriptionModel base) {
+		var fdmDiff = new FdmDiffRaw(
 				main,
 				base,
 				Diff.typed(FoodDescriptionModel.Food.class, FoodDescriptionModel.Food.class),
@@ -145,4 +268,8 @@ public record FdmDiffFactory() {
 		joined.addAll(b);
 		return joined;
 	}
+
+	record Context(Function<SemanticIdentifierSet, String> facetLiteralProvider) {
+	}
+
 }

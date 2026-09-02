@@ -88,7 +88,9 @@ public record ParameterDataVersion_generateCorrectionTemplate(
                 .load()
                 .defaultTransform();
 
-		var corr24 = new CorrectionTemplateFactory(fdmDiff, ppmThreshold, includeGroupCorrections)
+		var corr24 = new CorrectionTemplateFactory(
+				mainFdm::facetLiteral,
+				fdmDiff, ppmThreshold, includeGroupCorrections)
         		.create(reportContext.interviewSet());
 
 		return Clob.of("correction-template-v%s-v%s-%s"

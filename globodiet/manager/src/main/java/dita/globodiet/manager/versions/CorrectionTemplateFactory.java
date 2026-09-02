@@ -21,21 +21,25 @@ package dita.globodiet.manager.versions;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import org.springframework.util.Assert;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.sid.SemanticIdentifierSet;
 import dita.commons.types.Pair;
 import dita.commons.util.NumberUtils;
 import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredientResolved;
+import dita.foodon.fdm.FoodDescriptionModel.RecipeIngredientResolved.Key;
 import dita.globodiet.manager.versions.FdmDiffFactory.FdmDiff;
+import dita.globodiet.manager.versions.FdmDiffFactory.IngredientAdded;
+import dita.globodiet.manager.versions.FdmDiffFactory.IngredientChanged;
+import dita.globodiet.manager.versions.FdmDiffFactory.IngredientRemoved;
+import dita.globodiet.manager.versions.FdmDiffFactory.RecipeChange;
 import dita.recall24.dto.Annotated;
 import dita.recall24.dto.Annotated.Annotation;
 import dita.recall24.dto.Correction24;
@@ -49,6 +53,7 @@ import dita.recall24.dto.Record24.Composite;
 import dita.recall24.dto.Record24.Consumption;
 
 public record CorrectionTemplateFactory(
+		Function<SemanticIdentifier, String> facetLiteralProvider,
 		FdmDiff fdmDiff,
 		/// Amount of mass change of an ingredient relative to the recipe's total amount in units of parts per million (ppm),
 		/// that must be exceeded in order for a change to be emitted.
@@ -59,12 +64,17 @@ public record CorrectionTemplateFactory(
 		boolean includeGroupCorrections) {
 
 	public Correction24 create(final InterviewSet24 interviewSet) {
+
+		var map = fdmDiff.recipesChanged().stream()
+			.collect(Collectors.toMap(RecipeChange::recipeSid, UnaryOperator.identity()));
+
         var corrs = new ArrayList<CompositeCorr>();
         interviewSet.transform(new RecallNode24.Transfomer() {
 			@Override
 			public <T extends RecallNode24> T transform(final T node) {
 				if(node instanceof Record24.Composite composite) {
-	                correctionFor(composite).ifPresent(corrs::add);
+	                correctionFor(composite, map.get(composite.sid()))
+	                	.ifPresent(corrs::add);
 				}
 				return node;
 			}
@@ -79,72 +89,76 @@ public record CorrectionTemplateFactory(
 	/// * the recipe diff may include additions, that are not seen reflected in the current consumption
 	/// * the recipe diff may include deletions, that are not seen reflected in the current consumption
 	/// Based on an analysis, we generate a Correction24 instance, that records all potentially required changes
-	private Optional<CompositeCorr> correctionFor(final Composite composite) {
-        final var recipeSid = composite.sid();
-        // recipe that had changed between FDM versions
-        final var recipeChange = fdmDiff.recipeChangeFor(recipeSid)
-        		.orElse(null);
-        if(recipeChange==null)
+	/// @param list
+	private Optional<CompositeCorr> correctionFor(
+			final Composite composite,
+			final RecipeChange recipesChange) {
+        if(recipesChange==null)
         	return Optional.empty();
 
-        final var compWrapper = new CompositeWrapper(composite, this::facetLiteral);
-        final var builder = new CompositeCorrBuilder(composite, this::facetLiteral);
+        // recipe that had changed between FDM versions
+        final var compWrapper = new CompositeWrapper(composite);
+        final var builder = new CompositeCorrBuilder(composite, facetLiteralProvider);
 
-        recipeChange.nameChange()
+        Optional.ofNullable(recipesChange.nameChange())
         	.map(Pair::left)
         	.ifPresent(builder.rename()::set);
 
         if(includeGroupCorrections) {
-        	recipeChange.groupChange()
-	        	.map(Pair::left)
+            Optional.ofNullable(recipesChange.groupChange())
+        		.map(Pair::left)
 	        	.ifPresent(builder.newGroupSid()::set);
         }
 
-        compWrapper.ingredients().stream()
-	        .forEach(food->{
-	        	var ingrKey = compWrapper.keyForFood(food);
-	        	var ingredientAdded = recipeChange.lookupAdditions(ingrKey).orElse(null);
-	        	var ingredientRemoved = recipeChange.lookupDeletions(ingrKey).orElse(null);
-	        	var ingredientChanged = recipeChange.lookupChanges(ingrKey).orElse(null);
-	        	final int nonNullCount = (ingredientAdded!=null ? 1 : 0)
-	        			+ (ingredientRemoved!=null ? 1 : 0)
-	        			+ (ingredientChanged!=null ? 1 : 0);
-	        	Assert.isTrue(nonNullCount<=1, ()->"inconsitent number of changes on same key, "
-	        			+ "can at most be of one kind");
-	        	if(nonNullCount==0)
-	        		return;
-
-	        	if(ingredientAdded!=null) {
-					// an ingredient was added to the recipe, that has the same ingredient key as the food
-	        		// probably fine to skip
-	        	} else if (ingredientRemoved!=null) {
-	        		// an ingredient was removed from the recipe, that has the same ingredient key as the food
-	        		builder.del(ingredientRemoved, "ingredient was removed from the recipe in the FDM");
-	        	} else if(ingredientChanged!=null) {
-	        		// an ingredient was changed, that has the same ingredient key as the food
-	        		final int deltaPpm = Math.abs(ingredientChanged.left().relativeMassPermille() - ingredientChanged.right().relativeMassPermille());
-	        		if(deltaPpm>=ppmThreshold) { // ignore if below threshold
-		        		final BigDecimal newAmount = NumberUtils.totalTimesPermillion(
-		        				compWrapper.amountConsumedTotal(),
-		        				ingredientChanged.left().relativeMassPermille());
-		        		builder.change(ingredientChanged, newAmount);
-	        		}
-	        	}
-	        });
-        // for each ingredient that was added to the recipe, but is not in the composite -> do add
-        var keysAlreadyPartOfTheCompositeReported = compWrapper.keySet();
-        recipeChange.ingredientsAdded().stream()
-        	.filter(ingr->!keysAlreadyPartOfTheCompositeReported.contains(ingr.key()))
-        	.forEach(ingr->{
-        		final BigDecimal newAmount = NumberUtils.totalTimesPermillion(
+        // handle addition
+        // if consumed no-op, otherwise add
+        recipesChange.ingredientsAdded().forEach(ingrAdded->{
+        	var ingrConsumed = compWrapper.lookupIngredient(ingrAdded.key())
+        			.orElse(null);
+        	if(ingrConsumed!=null)
+				return;
+    		var newAmount = NumberUtils.totalTimesPermillion(
+    				compWrapper.amountConsumedTotal(),
+    				ingrAdded.relativeMassPermille());
+    		newAmount = NumberUtils.reducedPrecision(newAmount, 2);
+			builder.add(ingrAdded, newAmount , "ingredient was added to the recipe of FDM");
+        });
+        // handle removal
+        // if consumed delete, otherwise no-op
+        recipesChange.ingredientsRemoved().forEach(ingrRemoved->{
+        	var ingrConsumed = compWrapper.lookupIngredient(ingrRemoved.key())
+        			.orElse(null);
+        	if(ingrConsumed==null)
+				return;
+        	builder.del(ingrRemoved, "ingredient was removed from the recipe of FDM");
+        });
+        // handle change
+        // if consumed change amount, otherwise no-op
+        recipesChange.ingredientsChanged().forEach(ingrChanged->{
+        	var ingrConsumed = compWrapper.lookupIngredient(ingrChanged.key())
+        			.orElse(null);
+        	if(ingrConsumed==null)
+				return;
+        	if(ingrChanged.amountChangePpm()==null)
+        		return;
+        	var delta = ingrChanged.amountChangePpm().left()
+        			- ingrChanged.amountChangePpm().right();
+        	if(Math.abs(delta)>=ppmThreshold) { // ignore if below threshold
+        		var newAmount = NumberUtils.totalTimesPermillion(
         				compWrapper.amountConsumedTotal(),
-        				ingr.relativeMassPermille());
-        		builder.add(ingr, newAmount, "ingredient was added to the recipe in the FDM");
-        	});
+        				ingrChanged.amountChangePpm().left());
+        		newAmount = NumberUtils.reducedPrecision(newAmount, 2);
+				builder.change(ingrChanged, newAmount,
+						"ingredient changed amount (%.2f%%->%.2f%%) in recipe of FDM"
+							.formatted(
+									0.0001 * ingrChanged.amountChangePpm().right(),
+									0.0001 * ingrChanged.amountChangePpm().left()));
+        	}
+        });
 
         return !builder.isEmpty()
     		? Optional.of(builder
-    				.comments(compWrapper.comments())
+    				.comments(compWrapper.comments(facetLiteralProvider))
     				.build())
 			: Optional.empty();
     }
@@ -156,46 +170,51 @@ public record CorrectionTemplateFactory(
      */
     private record CompositeWrapper(
     		Composite composite,
-    		List<String> facetLiterals,
             List<String> notes,
             BigDecimal amountConsumedTotal,
-            List<Consumption> ingredients,
-            Function<SemanticIdentifier, String> facetLiteralProvider) {
-        CompositeWrapper(final Composite composite, final Function<SemanticIdentifier, String> facetLiteralProvider) {
+            Map<RecipeIngredientResolved.Key, Consumption> ingredients) {
+        CompositeWrapper(final Composite composite) {
             this(composite,
-        		composite.facetSids().elements()
-	    			.map(facetLiteralProvider)
-	    			.toList(),
                 notes(composite),
                 streamConsumptions(composite)
                     .map(Consumption::amountConsumed)
                     .reduce(BigDecimal.ZERO, BigDecimal::add),
                 streamConsumptions(composite)
-	                .toList(),
-                facetLiteralProvider);
+	                .collect(Collectors.toMap(
+	                		cons->new RecipeIngredientResolved.Key(composite.sid(), cons.sid(), cons.facetSids().hashCode()),
+	                		UnaryOperator.identity())));
         }
-        RecipeIngredientResolved.Key keyForFood(final Consumption food) {
-        	return new RecipeIngredientResolved.Key(composite.sid(), food.sid(), food.facetSids().hashCode());
-        }
-        Set<RecipeIngredientResolved.Key> keySet() {
-        	return ingredients.stream().map(this::keyForFood).collect(Collectors.toSet());
-        }
-        private List<String> comments() {
+        public Optional<Consumption> lookupIngredient(final Key key) {
+        	return Optional.ofNullable(ingredients.get(key));
+		}
+        private List<String> comments(final Function<SemanticIdentifier, String> facetLiteralProvider) {
+        	var totalGrams = amountConsumedTotal().doubleValue();
         	var comments = new ArrayList<String>();
             comments.add("ingredients consumed:");
-            ingredients()
+            ingredients().values()
             	.forEach(ingrCons->{
-            		comments.add("- %s %s %s (%s) {%s}"
+            		comments.add("- %s %s (%.1f%%) %s (%s) {%s}"
             			.formatted(
         					formatDecimal(ingrCons.amountConsumed()),
         					ingrCons.consumptionUnit(),
+        					100. * ingrCons.amountConsumed().doubleValue()
+								/ totalGrams,
 	                        ingrCons.name(), ingrCons.sid().objectId().toString(),
-	                        formatFacets(ingrCons.facetSids())));
+	                        formatFacets(ingrCons.facetSids(), facetLiteralProvider)));
             	});
             comments.add("amount-consumed-total: %.2fg"
-            		.formatted(amountConsumedTotal().doubleValue()));
+            		.formatted(totalGrams));
 			return comments;
 		}
+        private String formatFacets(
+        		final SemanticIdentifierSet sids,
+        		final Function<SemanticIdentifier, String> facetLiteralProvider) {
+            if(sids.elements().isEmpty())
+            	return "";
+            return "%s (%s)".formatted(
+                    sids.shortFormat(","),
+                    sids.elements().map(facetLiteralProvider).join(", "));
+        }
         @SuppressWarnings("unchecked")
         private static List<String> notes(final Composite composite) {
             return composite.lookupAnnotation(Annotated.NOTES)
@@ -207,13 +226,6 @@ public record CorrectionTemplateFactory(
             return composite.subRecords().stream()
                 .filter(Consumption.class::isInstance)
                 .map(Consumption.class::cast);
-        }
-    	private String formatFacets(final SemanticIdentifierSet sids) {
-            if(sids.elements().isEmpty())
-            	return "";
-            return "%s (%s)".formatted(
-                    sids.shortFormat(","),
-                    sids.elements().map(facetLiteralProvider).join(", "));
         }
     }
 
@@ -231,7 +243,39 @@ public record CorrectionTemplateFactory(
 					new AtomicReference<>(), new AtomicReference<>(),
 					new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     	}
-    	public CompositeCorrBuilder comments(final List<String> comments) {
+    	public void add(final IngredientAdded ingrAdded, final BigDecimal newAmount, final String secondaryComment) {
+    		additions().add(new Addition(
+    				ingrAdded.foodSid(),
+    				ingrAdded.foodFacetSids(),
+    				newAmount,
+    				List.of(
+						formatNameAndFacets(ingrAdded),
+						secondaryComment)));
+    	}
+		public void del(final IngredientRemoved ingrRemoved, final String secondaryComment) {
+    		deletions().add(new Deletion(
+    				ingrRemoved.foodSid(),
+    				ingrRemoved.foodFacetSids(),
+    				List.of(
+						formatNameAndFacets(ingrRemoved),
+						secondaryComment)));
+    	}
+    	public void change(final IngredientChanged ingrChanged, final BigDecimal newAmount, final String secondaryComment) {
+    		additions().add(new Addition(
+    				ingrChanged.foodSid(),
+    				ingrChanged.foodFacetSids(),
+    				newAmount,
+    				List.of(
+						formatNameAndFacets(ingrChanged),
+						secondaryComment)));
+    		deletions().add(new Deletion(
+    				ingrChanged.foodSid(),
+    				ingrChanged.foodFacetSids(),
+    				List.of(
+						formatNameAndFacets(ingrChanged),
+						"replaced")));
+    	}
+		public CompositeCorrBuilder comments(final List<String> comments) {
     		this.comments.addAll(comments);
 			return this;
 		}
@@ -241,59 +285,30 @@ public record CorrectionTemplateFactory(
 					&& additions.isEmpty()
 					&& deletions.isEmpty();
 		}
-		void add(final RecipeIngredientResolved recipeIngr, final BigDecimal newAmount,
-				final String secondaryComment) {
-    		additions().add(new Addition(
-    				recipeIngr.foodSid(),
-    				recipeIngr.foodFacetSids(),
-    				NumberUtils.reducedPrecision(newAmount, 2),
-    				List.of(
-						formatNameAndFacets(recipeIngr),
-						secondaryComment)));
-    	}
-    	void del(final RecipeIngredientResolved recipeIngr, final String secondaryComment) {
-    		deletions().add(new Deletion(
-    				recipeIngr.foodSid(),
-    				recipeIngr.foodFacetSids(),
-    				List.of(
-						formatNameAndFacets(recipeIngr),
-						secondaryComment)));
-    	}
-    	void change(final Pair<RecipeIngredientResolved, RecipeIngredientResolved> ingredientChange, final BigDecimal newAmount) {
-    		int oldPpm = ingredientChange.right().relativeMassPermille();
-    		int newPpm = ingredientChange.left().relativeMassPermille();
-    		add(ingredientChange.left(), newAmount,
-    				"amount changed in FDM %sg -> %sg (%s%% %s%%)"
-					.formatted(
-							formatDecimal(ingredientChange.right().amountGrams()),
-							formatDecimal(ingredientChange.left().amountGrams()),
-							formatDecimal(BigDecimal.valueOf(oldPpm).movePointLeft(4)), // converts ppm to percent 10^-6 -> 10^-2
-							formatDecimal(BigDecimal.valueOf(newPpm).movePointLeft(4))));
-    		del(ingredientChange.left(), "change of amount");
-		}
 		CompositeCorr build() {
     		var coors = CompositeCorr.Coordinates.of(composite);
     		return new CompositeCorr(coors, rename.get(), newGroupSid.get(),
     				additions, deletions, comments);
     	}
 		// -- HELPER
-    	private String formatNameAndFacets(final RecipeIngredientResolved ingrResolved) {
+    	private String formatNameAndFacets(final IngredientAdded value) {
             return "name: %s, facets: %s"
 					.formatted(
-							ingrResolved.food().name(),
-							formatFacets(ingrResolved.foodFacetSids()));
+							value.name(),
+							value.foodFacets());
         }
-    	private String formatFacets(final SemanticIdentifierSet sids) {
-            if(sids.elements().isEmpty())
-            	return "";
-            return "%s (%s)".formatted(
-                    sids.shortFormat(","),
-                    sids.elements().map(facetLiteralProvider).join(", "));
+    	private String formatNameAndFacets(final IngredientRemoved value) {
+            return "name: %s, facets: %s"
+					.formatted(
+							value.name(),
+							value.foodFacets());
         }
-    }
-
-    private String facetLiteral(final SemanticIdentifier sid) {
-        return fdmDiff.mainFdm().facetLiteral(sid);
+		private String formatNameAndFacets(final IngredientChanged value) {
+			return "name: %s, facets: %s"
+					.formatted(
+							value.name(),
+							value.foodFacets());
+		}
     }
 
     private static String formatDecimal(final BigDecimal bd) {
