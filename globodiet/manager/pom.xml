@@ -66,14 +66,14 @@ additional
                             Exception java.lang.UnsatisfiedLinkError:
                         /usr/local/openjdk-24/lib/libfontmanager.so-->
                         <!--                    <image>sapmachine:26-jdk-ubuntu-noble</image>-->
-                        <image>eclipse-temurin:25-jdk</image>
+                        <image>eclipse-temurin:27_35-jdk</image>
                     </from>
                 </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>org.ow2.asm</groupId>
                         <artifactId>asm</artifactId>
-                        <version>9.9.1</version>
+                        <version>9.10.1</version>
                     </dependency>
                 </dependencies>
             </plugin>
