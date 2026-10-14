@@ -14,7 +14,7 @@ permissions:
   id-token: write
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ahuber/causeway-build:4.0.0-jdk27
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -37,14 +37,6 @@ jobs:
       
     - name: Configure Pages
       uses: actions/configure-pages@v6
-      
-    - name: Install Node.js
-      uses: actions/setup-node@v6
-      with:
-        node-version: '24'
-        
-    - name: Install Antora
-      run: npm i @antora/cli@^3.1.15 @antora/site-generator-default@^3.1.15  asciidoctor-kroki@0.18.1 
               
     - name: Check Kroki
       run: |
