@@ -23,6 +23,11 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+
+import org.springframework.stereotype.Service;
+
 import org.apache.causeway.applib.services.repository.RepositoryService;
 import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
@@ -37,7 +42,8 @@ import org.apache.causeway.core.metamodel.facets.object.entity.EntityOrmMetadata
 import org.apache.causeway.core.metamodel.object.ManagedObject;
 import org.apache.causeway.core.metamodel.spec.ObjectSpecification;
 import org.apache.causeway.core.metamodel.tabular.simple.DataTable;
-import org.springframework.stereotype.Service;
+
+import lombok.SneakyThrows;
 
 import dita.causeway.replicator.DitaModuleDatabaseReplicator;
 import dita.causeway.replicator.tables.model.DataTableService;
@@ -47,9 +53,7 @@ import dita.commons.types.TabularData.NameTransformer;
 import dita.commons.types.TabularData.Row;
 import dita.commons.types.TabularData.Table;
 import io.github.causewaystuff.companion.applib.jpa.EnumConverter;
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
-import lombok.SneakyThrows;
+import io.github.causewaystuff.companion.applib.jpa.EnumWithCode;
 
 @Service(DitaModuleDatabaseReplicator.NAMESPACE + "TableSerializerYaml")
 public class TableSerializerYaml {
@@ -261,7 +265,7 @@ public class TableSerializerYaml {
                 // handle enums
                 var paramCls = _Context.loadClass(columnOrmMetadata.javaType());
                 if(paramCls.isEnum()) {
-                    var paramEnum = Enum.valueOf(_Casts.uncheckedCast(paramCls), cellLiteral);
+                    var paramEnum = (EnumWithCode)Enum.valueOf(_Casts.uncheckedCast(paramCls), cellLiteral);
                     var converter = (EnumConverter)(_Context.loadClass(columnOrmMetadata.javaType() + "$Converter")
                         .getConstructor()
                         .newInstance());
