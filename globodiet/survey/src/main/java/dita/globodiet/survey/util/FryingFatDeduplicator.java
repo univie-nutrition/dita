@@ -31,7 +31,7 @@ import dita.recall24.dto.Record24.Food;
  *
  * <p>Phase 2 processes all the candidates as collected from phase 1.
  */
-public record FryingFatDeduplicator2(
+public record FryingFatDeduplicator(
     Map<Integer, FryingFatHandler> fryingFatHandlers) implements Transfomer {
 
     @SuppressWarnings("unchecked")

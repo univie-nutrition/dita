@@ -22,6 +22,10 @@ package dita.globodiet.survey.dom;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
+import jakarta.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.apache.causeway.applib.annotation.Action;
 import org.apache.causeway.applib.annotation.ActionLayout;
 import org.apache.causeway.applib.annotation.MemberSupport;
@@ -33,7 +37,8 @@ import org.apache.causeway.applib.value.Clob;
 import org.apache.causeway.applib.value.NamedWithMimeType.CommonMimeType;
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.io.DataSink;
-import org.springframework.beans.factory.annotation.Qualifier;
+
+import lombok.RequiredArgsConstructor;
 
 import dita.commons.util.FormatUtils;
 import dita.recall24.reporter.format.TodoFormat;
@@ -41,8 +46,6 @@ import dita.recall24.reporter.tabular.TabularReport;
 import dita.recall24.reporter.tabular.TabularReport.Aggregation;
 import dita.recall24.reporter.todo.TodoReporter;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
-import jakarta.inject.Inject;
-import lombok.RequiredArgsConstructor;
 
 @Action
 @ActionLayout(
@@ -84,12 +87,14 @@ public class Survey_downloadMappingTodos {
     // -- HELPER
 
     private Clob yamlFormat(final ReportContext reportContext) {
-        if(reportContext.isEmpty()) return Clob.of("empty", CommonMimeType.YAML, "");
+        if(reportContext.isEmpty())
+            return Clob.of("empty", CommonMimeType.YAML, "");
 
-        var yaml = new StringBuilder();
         var todoReporter = new TodoReporter(
-            reportContext.interviewSet(), reportContext.surveyConfig().systemId(),
+            reportContext.interviewSet(),
+            reportContext.surveyConfig().systemId(),
             reportContext.nutMapping());
+        var yaml = new StringBuilder();
         todoReporter.report(
                 DataSink.ofStringConsumer(yaml, StandardCharsets.UTF_8), factoryService);
 
@@ -97,18 +102,18 @@ public class Survey_downloadMappingTodos {
     }
 
     private Clob csvFormat(final ReportContext reportContext) {
-        if(reportContext.isEmpty()) return Clob.of("empty", CommonMimeType.CSV, "");
-
-        var foodCompositionRepo = reportContext.foodCompositionRepository();
+        if(reportContext.isEmpty())
+            return Clob.of("empty", CommonMimeType.CSV, "");
 
         var tabularReport = new TabularReport(
-            reportContext.interviewSet(), reportContext.surveyConfig().systemId(),
+            reportContext.interviewSet(),
+            reportContext.surveyConfig().systemId(),
             reportContext.specialDayMapping(),
             reportContext.specialDietMapping(),
             reportContext.fcoMapping(),
             reportContext.pocMapping(),
             reportContext.foodDescriptionModel(),
-            foodCompositionRepo,
+            reportContext.foodCompositionRepository(),
             Can.empty(),
             Aggregation.NONE);
 

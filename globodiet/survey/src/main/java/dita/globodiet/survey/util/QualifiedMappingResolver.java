@@ -20,13 +20,16 @@ package dita.globodiet.survey.util;
 
 import org.jspecify.annotations.NonNull;
 
+import dita.commons.sid.qmap.QualifiedMap;
+import dita.recall24.dto.Annotated;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
-import dita.recall24.dto.Record24.Composite;
-import dita.commons.sid.qmap.QualifiedMap;
-import dita.recall24.dto.Annotated;
 
+/**
+ * Annotates any consumption entry with {@link Annotated#FCDB_ID}
+ * if its missing, where nutMapping provides the data.
+ */
 public record QualifiedMappingResolver(
         @NonNull QualifiedMap nutMapping
         ) implements Transfomer {
@@ -37,12 +40,12 @@ public record QualifiedMappingResolver(
 
         return switch(node) {
             case Record24.Composite composite -> {
-                var builder = (Composite.Builder) composite.asBuilder();
+                var builder = composite.asBuilder();
                 builder.replaceSubRecords(this::transform); // recursive
                 yield (T) builder.build();
             }
             case Record24.Consumption consumption -> {
-                yield consumption.lookupAnnotation("fcdbId").isPresent()
+                yield consumption.lookupAnnotation(Annotated.FCDB_ID).isPresent()
                     ? (T) consumption
                     : (T) nutMapping
                         .lookupTarget(consumption.asQualifiedMapKey())

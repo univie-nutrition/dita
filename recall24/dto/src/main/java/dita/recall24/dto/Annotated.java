@@ -25,10 +25,11 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import org.jspecify.annotations.Nullable;
+
 import org.apache.causeway.commons.collections.Can;
 import org.apache.causeway.commons.internal.base._Casts;
 import org.apache.causeway.commons.internal.exceptions._Exceptions;
-import org.jspecify.annotations.Nullable;
 
 import dita.commons.sid.SemanticIdentifier;
 import dita.commons.types.Message;
@@ -36,7 +37,13 @@ import dita.commons.types.Message.Severity;
 
 public interface Annotated {
 
+    /**
+     * A group as defined by a food ontology of choice.
+     */
     public static final String GROUP = "group";
+    /**
+     * Identifier of a Food Component Database entry. (E.g. BLS)
+     */
     public static final String FCDB_ID = "fcdbId";
     public static final String DATASOURCE = "dataSource";
     public static final String NOTES = "notes";

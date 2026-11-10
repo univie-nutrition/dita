@@ -22,6 +22,8 @@ import java.util.function.UnaryOperator;
 
 import org.apache.causeway.commons.collections.Can;
 
+import lombok.extern.slf4j.Slf4j;
+
 import dita.commons.food.composition.FoodCompositionRepository;
 import dita.commons.sid.dmap.DirectMap;
 import dita.commons.sid.qmap.QualifiedMap;
@@ -29,13 +31,13 @@ import dita.foodon.fdm.FoodDescriptionModel;
 import dita.globodiet.survey.util.AssociatedRecipeResolver;
 import dita.globodiet.survey.util.DuplicateIngredientMerger;
 import dita.globodiet.survey.util.FoodGroupReplacerBasedOnFDM;
-import dita.globodiet.survey.util.FryingFatDeduplicator1;
-import dita.globodiet.survey.util.FryingFatDeduplicator2;
+import dita.globodiet.survey.util.FryingFatCollector;
+import dita.globodiet.survey.util.FryingFatDeduplicator;
 import dita.globodiet.survey.util.IngredientToRecipeResolver;
 import dita.globodiet.survey.util.QualifiedMappingResolver;
 import dita.recall24.dto.InterviewSet24;
 import io.github.causewaystuff.blobstore.applib.BlobStore;
-import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 public record ReportContext(
     SurveyConfig surveyConfig,
@@ -63,27 +65,44 @@ public record ReportContext(
         return new ReportContextFactory(surveyBlobStore, campaignKeys);
     }
 
-    //TODO[dita-globodiet-survey] perhaps don't hardcode interview-set post-processors: make this a configuration concern
+    /**
+     * Say there exists a Nutrient Mapping for a Food that has an associated Recipe,
+     * then {@link AssociatedRecipeResolverTL}/{@link IngredientToRecipeResolver} have precedence over
+     * {@link QualifiedMappingResolver}, that is, for each level of 'recipe nesting' we first
+     * replace food by their associated recipe and only then apply nutrient mapping.
+     *
+     * <p>This design should allow for Food always to be resolvable to Nutrients,
+     * provided all required Nutrient Mappings are made available.
+     */
     public ReportContext defaultTransform() {
-        var fryingFatDeduplicator1 = new FryingFatDeduplicator1();
-        return transform(in->
-            in.isEmpty()
-                ? in
-                : in
-                    .transform(new AssociatedRecipeResolver(foodDescriptionModel()))
-                    .transform(new QualifiedMappingResolver(nutMapping()))
-                    .transform(new IngredientToRecipeResolver(foodDescriptionModel()))
-                    // to handle ingredients from the previous transformer
-                    .transform(new QualifiedMappingResolver(nutMapping()))
-                    .transform(new IngredientToRecipeResolver(foodDescriptionModel()))
-                    .transform(fryingFatDeduplicator1)
-                    .transform(new FryingFatDeduplicator2(fryingFatDeduplicator1.fryingFatHandlersAsMap()))
-                    // to handle ingredients from the previous transformer
-                    .transform(new QualifiedMappingResolver(nutMapping()))
-                    .transform(new FoodGroupReplacerBasedOnFDM(foodDescriptionModel()))
-                    .transform(new DuplicateIngredientMerger())
-            );
+        var fryingFatCollector = new FryingFatCollector();
+
+        return transform(in -> in.isEmpty() ? in : in
+            // 1. Resolve all ingredients -> recipe associations (name suffixes)
+            .transform(new AssociatedRecipeResolver(foodDescriptionModel()))
+            // 2. Apply nutrient mappings, that is, adds mapping targets
+            // as FCDB annotation. Targets are BLS and other FCDBs (or Recipes).
+            // Then resolve ingredients that were mapped to recipes via FCDB annotation
+            .transform(new QualifiedMappingResolver(nutMapping()))
+            .transform(new IngredientToRecipeResolver(foodDescriptionModel()))
+            // 3. Resolve all ingredients -> recipe associations (name suffixes)
+            .transform(new AssociatedRecipeResolver(foodDescriptionModel()))
+
+            // 4. Re-apply mappings for newly resolved recipe compositions
+            .transform(new QualifiedMappingResolver(nutMapping()))
+            .transform(new IngredientToRecipeResolver(foodDescriptionModel()))
+            // 5. Final pass: resolve all ingredients -> recipe associations (name suffixes)
+            .transform(new AssociatedRecipeResolver(foodDescriptionModel()))
+
+            // 6. Post-processing & deduplication
+            .transform(fryingFatCollector)
+            .transform(new FryingFatDeduplicator(fryingFatCollector.fryingFatHandlersAsMap()))
+            .transform(new QualifiedMappingResolver(nutMapping()))
+            .transform(new FoodGroupReplacerBasedOnFDM(foodDescriptionModel()))
+            .transform(new DuplicateIngredientMerger())
+        );
     }
+
 
     public ReportContext transform(final UnaryOperator<InterviewSet24> interviewTransformer) {
         return new ReportContext(surveyConfig, foodCompositionRepository, foodDescriptionModel,

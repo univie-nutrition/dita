@@ -18,35 +18,26 @@
  */
 package dita.globodiet.survey.util;
 
-import java.util.Optional;
-
-import org.apache.causeway.commons.internal.exceptions._Exceptions;
-
-import org.jspecify.annotations.NonNull;
-
-import dita.commons.sid.SemanticIdentifier.SystemId;
 import dita.foodon.fdm.FoodDescriptionModel;
-import dita.foodon.fdm.FoodDescriptionModel.Recipe;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Transfomer;
-import dita.recall24.dto.Record24.Food;
+import dita.recall24.dto.Record24;
 
 /**
  * In 2024, the Austrian GloboDiet food description model introduced the concept of 'associated' food,
  * that can be quickly entered during interviews,
  * but requires a post-processing step later (before interview reporting),
  * with which those reported food nodes are to be replaced by an associated recipe.
- * <p>
- * The association link between food and recipe is made via references in their name:
+ *
+ * <p>The association link between food and recipe is made via references in their name:
  * <ul>
  * <li>food reference their associated recipe via suffix {assocRecp=‹recipe-code›}</li>
  * <li>recipes reference their associated food via suffix {assocFood=‹food-code›}</li>
  * </ul>
  */
 public record AssociatedRecipeResolver(
-        @NonNull FoodDescriptionModel foodDescriptionModel,
-        @NonNull FoodToCompositeConverter foodToCompositeConverter
-        ) implements Transfomer {
+        FoodDescriptionModel foodDescriptionModel,
+        FoodToCompositeConverter foodToCompositeConverter) implements Transfomer {
 
     public AssociatedRecipeResolver(final FoodDescriptionModel foodDescriptionModel) {
         this(foodDescriptionModel, new FoodToCompositeConverter(foodDescriptionModel));
@@ -57,16 +48,21 @@ public record AssociatedRecipeResolver(
     public <T extends RecallNode24> T transform(final T node) {
 
         return switch(node) {
-            // we replace the original food by its associated recipe
-            case Food origFood -> {
-                var fdmAdapter = new FDMAdapter(origFood.sid().systemId(), foodDescriptionModel);
-
-                FoodDescriptionModel.Recipe associatedRecipe = fdmAdapter
-                        .associatedRecipe(origFood, CodeFromName.parseAssocRecipe(origFood.name()))
+            case Record24.Composite composite -> {
+                var builder = composite.asBuilder();
+                var newComposite = builder.replaceSubRecords(this::transform) // recursive
+                    .build();
+                yield (T) newComposite;
+            }
+            case Record24.Food origFood -> {
+                FoodDescriptionModel.Recipe associatedRecipe = foodToCompositeConverter
+                        .lookupAssociatedRecipe(origFood, CodeFromName.parseAssocRecipe(origFood.name()))
                         .orElse(null);
-                if(associatedRecipe==null) yield (T)origFood;
+                if(associatedRecipe==null){
+                    yield (T)origFood;
+                }
 
-                // replace the food node by its associated composite node ..
+                // replace the food node by its associated composite node
                 var composite = foodToCompositeConverter
                     .foodToRecipe(origFood, associatedRecipe, "recipe associated by food")
                     .build();
@@ -75,32 +71,6 @@ public record AssociatedRecipeResolver(
             }
             default -> node;
         };
-    }
-
-    // -- HELPER
-
-    private record FDMAdapter(
-            @NonNull SystemId systemId,
-            @NonNull FoodDescriptionModel foodDescriptionModel) {
-
-        /**
-         * Optionally returns the associated {@link Recipe},
-         * based on whether a suffix {assocRecp=‹recipe-code›} is present.
-         * <p>
-         * Fails if the recipe-code is present but cannot be resolved.
-         */
-        Optional<Recipe> associatedRecipe(final @NonNull Food origFood, final @NonNull CodeFromName codeFromName) {
-            var associatedRecipeSid = codeFromName.associatedRecipeSid(systemId).orElse(null);
-            if(associatedRecipeSid == null) return Optional.empty();
-            var associatedRecipe = foodDescriptionModel.lookupRecipeBySid(associatedRecipeSid);
-            if(associatedRecipe.isEmpty()) {
-                throw _Exceptions.illegalArgument("failed to resolve recipe for %s using sid %s",
-                        origFood.name(),
-                        associatedRecipeSid);
-            }
-            return associatedRecipe;
-        }
-
     }
 
 }

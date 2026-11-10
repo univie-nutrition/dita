@@ -25,10 +25,10 @@ import dita.recall24.dto.Annotated;
 import dita.recall24.dto.RecallNode24;
 import dita.recall24.dto.RecallNode24.Transfomer;
 import dita.recall24.dto.Record24;
-import dita.recall24.dto.Record24.Composite;
 
 /**
  * If recipe ingredients are mapped to (nested) recipes,
+ * based on {@link Annotated#FCDB_ID} annotations stemming from <i>Nutrient Mapping</i>,
  * this transformer resolves those nodes.
  */
 public record IngredientToRecipeResolver(
@@ -45,13 +45,13 @@ public record IngredientToRecipeResolver(
 
         return switch(node) {
             case Record24.Composite composite -> {
-                var builder = (Composite.Builder) composite.asBuilder();
+                var builder = composite.asBuilder();
                 var newComposite = builder.replaceSubRecords(this::transform) // recursive
                     .build();
                 yield (T) newComposite;
             }
             case Record24.Food food -> {
-                var fcdbId = food.lookupAnnotation("fcdbId")
+                var fcdbId = food.lookupAnnotation(Annotated.FCDB_ID)
                         .map(Annotated.Annotation.valueAs(SemanticIdentifier.class))
                         .orElse(null);
                 if(fcdbId!=null) {

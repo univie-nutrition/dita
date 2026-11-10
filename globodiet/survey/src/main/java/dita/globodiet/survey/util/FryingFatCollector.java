@@ -40,11 +40,11 @@ import io.github.causewaystuff.commons.base.types.internal.SneakyRef;
  *
  * <p>Phase 1 collects all the candidates.
  */
-public record FryingFatDeduplicator1(
+public record FryingFatCollector(
     SneakyRef<Stack<Composite>> compositeStack,
     List<FryingFatHandler> fryingFatHandlers) implements Transfomer {
 
-    public FryingFatDeduplicator1() {
+    public FryingFatCollector() {
         this(SneakyRef.of(new Stack<>()), new ArrayList<>());
     }
 

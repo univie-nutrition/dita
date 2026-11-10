@@ -19,10 +19,12 @@
 package dita.globodiet.survey.util;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.jspecify.annotations.NonNull;
 
 import org.apache.causeway.commons.collections.Can;
+import org.apache.causeway.commons.internal.exceptions._Exceptions;
 
 import dita.commons.food.consumption.FoodConsumption.ConsumptionUnit;
 import dita.commons.sid.SemanticIdentifier;
@@ -78,6 +80,24 @@ public record FoodToCompositeConverter(@NonNull FoodDescriptionModel foodDescrip
             .forEach(recordBuilder.subRecords()::add);
 
         return recordBuilder;
+    }
+
+    /**
+     * Optionally returns the associated {@link Recipe},
+     * based on whether a suffix {assocRecp=‹recipe-code›} is present.
+     *
+     * <p>Fails if the recipe-code is present but cannot be resolved.
+     */
+    Optional<Recipe> lookupAssociatedRecipe(final @NonNull Food origFood, final @NonNull CodeFromName codeFromName) {
+        var associatedRecipeSid = codeFromName.associatedRecipeSid(origFood.sid().systemId()).orElse(null);
+        if(associatedRecipeSid == null)
+            return Optional.empty();
+        var associatedRecipe = foodDescriptionModel.lookupRecipeBySid(associatedRecipeSid);
+        if(associatedRecipe.isEmpty())
+            throw _Exceptions.illegalArgument("failed to resolve recipe for %s using sid %s",
+                    origFood.name(),
+                    associatedRecipeSid);
+        return associatedRecipe;
     }
 
     // -- HELPER
